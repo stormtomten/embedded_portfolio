@@ -1,0 +1,6 @@
+Alice
+Bob -v
+Charlie --uppercase
+David -u
+Eve -x
+

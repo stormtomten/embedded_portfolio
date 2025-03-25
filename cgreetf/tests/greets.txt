@@ -1,0 +1,26 @@
+Alice --uppercase
+Bob --verbose
+Charlie
+Diana -u
+Ethan -v
+Fiona --verbose --uppercase
+George
+Hannah -v
+Ian --uppercase
+Julia
+Kevin -u
+Laura --verbose
+Mike
+Nina -u --verbose
+Oscar --uppercase
+Paula
+Quentin --verbose
+Rachel --uppercase --verbose
+Steve
+Tina -v
+Uma -u
+Victor
+Wendy -v --uppercase
+Xavier
+Yara --verbose
+Zach -u
