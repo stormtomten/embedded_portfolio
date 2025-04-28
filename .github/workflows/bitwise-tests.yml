@@ -1,36 +1,44 @@
 name: Bitwise Tests
 
-
-# Kör workflow när det pushas
+# Run workflow on pushes to the bitwise directory or this workflow file
 on:
   push:
     paths:
-      - 'bitwise/**' # Kör denna workflow när filer i bitwise-mappen ändras
+      - 'bitwise/**' # Run workflow when files in the bitwise folder change
       - '.github/workflows/bitwise-tests.yml'
+
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest # Använder en Ubunut-maskin av senaste slag
+    runs-on: ubuntu-latest # Use the latest Ubuntu runner
+    strategy:
+      matrix:
+        compiler: [gcc, clang]
 
     steps:
-      # Checka ut koden
-    - name: Chekout code
-      uses: actions/checkout@v3
+      # Check out the code
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Install dependencies
-      run: sudo apt update && sudo apt install -y cmake build-essential
+      # Dependency installation is commented out because these tools are pre-installed on 'ubuntu-latest'.
+      # Uncomment the step if you need to ensure specific versions of cmake or build-essential.
+      # - name: Install dependencies
+      #   run: sudo apt update && sudo apt install -y cmake build-essential
 
+      # Build the project
+      - name: Build bitwise project
+        run: |
+          cmake -S bitwise -B bitwise/build -DCMAKE_C_COMPILER=${{ matrix.compiler }}
+          cmake --build bitwise/build
 
-    # Bygg projektet
-    - name: Build bitwise project
-      run: |
-        cd bitwise
-        mkdir -p build
-        cd build
-        cmake ..
-        cmake --build .
+      # Run tests with ctest
+      - name: Run tests
+        run: |
+          cd bitwise/build
+          ctest --output-on-failure
 
-    # Kör tester med ctest
-    - name: Run tests
-      run: |
-        cd bitwise/build
-        ctest --verbose
+      # Upload test results
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: bitwise/build/Testing
