@@ -9,15 +9,18 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest # Använder en Ubunut-maskin av senaste slag
+    defaults:
+      run:
+        shell: bash -l {0}
 
     steps:
       # Checka ut koden
     - name: Chekout code
-      uses: action/checkout@v2
+      uses: actions/checkout@v2
 
     # Ställ in CMake
     - name: Set up CMake
-      uses: action/setup-cmake@v1
+      uses: actions/setup-cmake@v1
       with:
         cmake-version: '3.16' # Ange CMake version
 
