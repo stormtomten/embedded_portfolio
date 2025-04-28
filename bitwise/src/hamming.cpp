@@ -1,4 +1,3 @@
-#include "hamming.h"
 #include <bitset>
 #include <iostream>
 
