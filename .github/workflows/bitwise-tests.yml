@@ -20,7 +20,7 @@ jobs:
 
     # Ställ in CMake
     - name: Set up CMake
-      uses: actions/setup-cmake@v1
+      uses: lukka/setup-cmake@v1
       with:
         cmake-version: '3.16' # Ange CMake version
 
