@@ -22,12 +22,12 @@ jobs:
       # Dependency installation is commented out because these tools are pre-installed on 'ubuntu-latest'.
       # Uncomment the step if you need to ensure specific versions of cmake or build-essential.
       # - name: Install dependencies
-      #   run: sudo apt update && sudo apt install -y cmake build-essential
+      #   run: sudo apt update && sudo apt install -y cmake build-essential ninja-build
 
       # Build the project
       - name: Build bitwise project
         run: |
-          cmake -S bitwise -B bitwise/build -DCMAKE_C_COMPILER=${{ matrix.compiler }}
+          cmake -S bitwise -B bitwise/build -G Ninja -DCMAKE_C_COMPILER=${{ matrix.compiler }}
           cmake --build bitwise/build
 
       # Run tests with ctest
@@ -40,5 +40,5 @@ jobs:
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
-          name: test-results
+          name: test-results-${{ github.run_id }}
           path: bitwise/build/Testing
