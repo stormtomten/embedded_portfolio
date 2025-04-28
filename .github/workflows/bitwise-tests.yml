@@ -10,14 +10,14 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest # Använder en Ubunut-maskin av senaste slag
-    defaults:
-      run:
-        shell: bash -l {0}
 
     steps:
       # Checka ut koden
     - name: Chekout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: sudo apt update && sudo apt intsll -y cmake build-essentials
 
     # Ställ in CMake
     - name: Set up CMake
