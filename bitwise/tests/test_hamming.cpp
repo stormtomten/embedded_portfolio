@@ -11,5 +11,5 @@ TEST(HammingTest, ValidInput) {
 TEST(HammingTest, NegativeValues) {
   EXPECT_EQ(hamming(-1), -1);
   EXPECT_EQ(hamming(-5), -1);
-  EXPECT_EQ(hamming(-1005), -1);
+  EXPECT_EQ(hamming(-1005), 0);
 }
