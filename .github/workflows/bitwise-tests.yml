@@ -6,6 +6,7 @@ on:
   push:
     paths:
       - 'bitwise/**' # Kör denna workflow när filer i bitwise-mappen ändras
+      - '.github/workflows/bitwise-tests.yml'
 jobs:
   build-and-test:
     runs-on: ubuntu-latest # Använder en Ubunut-maskin av senaste slag
