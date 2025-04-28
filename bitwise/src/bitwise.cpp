@@ -1,39 +1,6 @@
+#include "bitops.h"
 #include <bitset>
 #include <iostream>
-
-void swap_int(int &a, int &b) {
-  a = a ^ b;
-  b = b ^ a;
-  a = a ^ b;
-}
-bool powtwo(int a) {
-  if (((a & (a - 1)) == 0) && (a > 0)) {
-    return true;
-  } else {
-    return false;
-  }
-}
-int hamming(int a) {
-  int count = 0;
-  while (a > 0) {
-    if (a & 0b1) {
-      count++;
-    }
-    a = a >> 1;
-  }
-  return count;
-}
-
-int kbit(int a, int b) { return ((a >> b) & 1); }
-int kflip(int a, int b) { return (a ^= (1 << b)); }
-
-std::string powtwo_string(int a) {
-  if (((a & (a - 1)) == 0) && (a > 0)) {
-    return "";
-  } else {
-    return "not ";
-  }
-}
 
 int main(int argc, char *argv[]) {
   if (argc < 2) {
@@ -70,11 +37,7 @@ int main(int argc, char *argv[]) {
     }
     int a = std::atoi(argv[2]);
     std::cout << "Input: " << a << std::endl;
-    if (powtwo(a)) {
-      std::cout << a << " is a power of 2" << std::endl;
-    } else {
-      std::cout << a << " is not a power of 2" << std::endl;
-    }
+    std::cout << a << " is " << powtwo(a) << "a power off 2." << std::endl;
     break;
   }
 
@@ -84,7 +47,12 @@ int main(int argc, char *argv[]) {
                 << std::endl;
       return 1;
     }
-    int a = std::atoi(argv[2]);
+    int a = std::stoi(argv[2]);
+    if (a < 0) {
+      std::cerr << "Endast positiva tal, tack" << std::endl;
+      return 1;
+    }
+
     std::cout << "Talet " << a << " " << std::bitset<5>(a) << " har "
               << hamming(a) << " ettor." << std::endl;
     break;
@@ -114,18 +82,6 @@ int main(int argc, char *argv[]) {
               << " in binary), k = " << b << std::endl;
     std::cout << "Output: " << kflip(a, b) << " ("
               << std::bitset<5>(kflip(a, b)) << " in binary)" << std::endl;
-    break;
-  }
-  case 'l': {
-    if (argc != 3) {
-      std::cerr << "Usage: " << argv[0] << " " << argv[1] << " <int>"
-                << std::endl;
-      return 1;
-    }
-    int a = std::atoi(argv[2]);
-    std::cout << "Input: " << a << std::endl;
-    std::cout << a << " is " << powtwo_string(a) << "a power off 2."
-              << std::endl;
     break;
   }
 

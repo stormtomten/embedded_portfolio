@@ -1,0 +1,36 @@
+name: Bitwise Tests
+
+
+# Kör workflow när det pushas
+on:
+  push:
+    paths:
+      - 'bitwise/**' # Kör denna workflow när filer i bitwise-mappen ändras
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest # Använder en Ubunut-maskin av senaste slag
+
+    steps:
+      # Checka ut koden
+    - name: Chekout code
+      uses: action/checkout@v2
+
+    # Ställ in CMake
+    - name: Set up CMake
+      uses: action/setup-cmake@v1
+      with:
+        cmake-version: '3.16' # Ange CMake version
+
+    # Bygg projektet
+    - name: Build project
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        cmake --build .
+
+    # Kör tester med ctest
+    - name: Run tests
+      run: |
+        cd build
+        ctest --verbose
