@@ -45,7 +45,7 @@ jobs:
 
       - name: Configure CMake
         working-directory: ${{ env.NAME }}
-        run: cmake -B build -G Ninja
+        run: cmake -B build -G Ninja -DPICO_SDK_PATH=$PICO_SDK_PATH
 
       - name: Build Led Controller
         working-directory: ${{ env.NAME }}
@@ -70,9 +70,9 @@ jobs:
         working-directory: ${{ env.NAME }}
         run: |
           echo "Copying developer files"
-          mkdir -p artifacts/${NAME}-developer-files-${HASH}
-          cp -r bin/* artifacts/${NAME}-developer-files-${HASH}
-          echo "User files prepared in artifacts/${NAME}-developer-files-${HASH}"
+          mkdir -p artifacts/${RENAME}-developer-files-${HASH}
+          cp -r bin/* artifacts/${RENAME}-developer-files-${HASH}
+          echo "User files prepared in artifacts/${RENAME}-developer-files-${HASH}"
           ls -l artifacts/${RENAME}-developer-files-${HASH}
 
       - name: Upload end user firmware as artifacts
@@ -85,4 +85,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.RENAME }}-developer-files-${{ env.HASH }}
-          path: "artifacts/${{ env.NAME }}-developer-files-${{ env.HASH }}"
+          path: "artifacts/${{ env.RENAME }}-developer-files-${{ env.HASH }}"
