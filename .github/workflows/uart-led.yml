@@ -1,0 +1,19 @@
+name: UART led Build
+
+on:
+  push:
+    paths:
+      - 'uart_led/**'
+      - '.github/workflows/uart-led.yml'
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    uses: ./.github/workflows/firmware-build.yml
+    with:
+      name: uart_led
+      rename: uart-led
+      ext: "bin uf2 elf"
+      path: uart_led
+

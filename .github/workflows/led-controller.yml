@@ -3,7 +3,7 @@ name: Led Controller Build
 on:
   push:
     paths:
-      - 'led_controller/**'
+      - './led_controller/**'
       - '.github/workflows/led-controller.yml'
   workflow_dispatch:
 
