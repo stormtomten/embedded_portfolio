@@ -1,0 +1,55 @@
+name: Led Controller Build
+
+on:
+  push:
+    paths:
+      - 'led_controller/**'
+      - '.github/workflows/led_controller.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      
+
+      - name: Install dependencies
+        uses: sudo apt-get update && sudo apt-get install -y \
+          build-essential \
+          gcc-arm-none-eabi \
+          libnewlib-arm-none-eabi \
+          libstdc++-arm-nine-eabi-newlib
+
+      - name: Fetch pico-sdk
+        run: |
+          git clone https://github.com/raspberrypi/pico-sdk.git
+          cd pico-sdk
+          git checkout 2.1.1 #Lås versionen
+          git submodule update --init
+          echo "PICO_SDK_PATH=$GITHUB_WORKSPACE/pico-sdk" >> $GITHUB_ENV
+
+      - name: Configure CMake
+        run: cmake -S led_controller -B led_controller/build -G Ninja
+
+      - name: Build Led Controller
+        run: cmake --build led_controller/build
+
+      - name: List built files
+        run: ls -l led_controller/build || true
+
+      - name: List built files in bin
+        run: ls -l /led_controller/bin || true
+
+      - name: Upload firmware as artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: pico-firmware
+          path: led_controller |
+            bin/*.elf
+            bin/*.uf2
+            build/*.elf
+            build/*.uf2
