@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - 'led_controller/**'
-      - '.github/workflows/led_controller.yml'
+      - '.github/workflows/led-controller.yml'
 
 jobs:
   build:
