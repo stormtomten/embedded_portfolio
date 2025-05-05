@@ -22,7 +22,7 @@ jobs:
           build-essential \
           gcc-arm-none-eabi \
           libnewlib-arm-none-eabi \
-          libstdc++-arm-nine-eabi-newlib
+          libstdc++-arm-none-eabi-newlib
 
       - name: Fetch pico-sdk
         run: |
@@ -33,18 +33,22 @@ jobs:
           echo "PICO_SDK_PATH=$GITHUB_WORKSPACE/pico-sdk" >> $GITHUB_ENV
 
       - name: Configure CMake
-        run: cmake -S led_controller -B led_controller/build -G Ninja
+        working-directory: led_controller
+        run: cmake -B build -G Ninja
 
       - name: Build Led Controller
-        run: cmake --build led_controller/build
+        run: cmake --build build
 
       - name: List built files
-        run: ls -l led_controller/build || true
+        working-directory: led_controller
+        run: ls -l build || true
 
       - name: List built files in bin
-        run: ls -l /led_controller/bin || true
+        working-directory: led_controller
+        run: ls -l bin || true
 
       - name: Upload firmware as artifacts
+        working-directory: led_controller
         uses: actions/upload-artifact@v4
         with:
           name: pico-firmware
