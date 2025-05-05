@@ -26,11 +26,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set short commit hash
         run: |
-          echo "HASH=${GITHUB_SHA::7}" >> $GITHUB_ENV
-          echo "Short hash is: ${GITHUB_SHA::7}"
+          echo "HASH=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+          echo "Short hash is: $(git rev-parse --short HEAD)"
 
       - name: Istall dependencies
         run: |
