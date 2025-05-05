@@ -28,7 +28,7 @@ function(add_my_test name sources)
     add_test(NAME ${name} COMMAND ${name})
     set_target_properties(${name} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/tests/bin
-)
+    )
 
 endfunction()
 
@@ -38,4 +38,5 @@ add_my_test(PowtwoTest test_powtwo.cpp bitops)
 add_my_test(HammingTest test_hamming.cpp bitops)
 add_my_test(KBitTest test_kbit.cpp bitops)
 add_my_test(KFlipTest test_kflip.cpp bitops)
+add_my_test(BitwiseTest test_bitwise.cpp bitwise_lib)
 #add_my_test(HammingBin test_hamming_bin.cpp)
