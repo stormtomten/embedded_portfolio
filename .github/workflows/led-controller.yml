@@ -65,8 +65,8 @@ jobs:
           for ext in $EXT; do
             find bin -type f -name "${NAME}.$ext" -exec cp {} "artifacts/user/${RENAME}-firmware-${HASH}/${RENAME}.$ext" \;
             done
-          echo "User files prepared in artifacts/${RENAME}-firmware-${HASH}"
-          ls -l artifacts/${RENAME}-firmware-${HASH}
+          echo "User files prepared in artifacts/user/${RENAME}-firmware-${HASH}"
+          ls -l artifacts/user/${RENAME}-firmware-${HASH}
 
       - name: Prepare developer files
         working-directory: ${{ env.NAME }}
@@ -74,8 +74,8 @@ jobs:
           echo "Copying developer files"
           mkdir -p artifacts/dev/${RENAME}-developer-files-${HASH}
           cp -r bin/* artifacts/dev/${RENAME}-developer-files-${HASH}
-          echo "User files prepared in artifacts/${RENAME}-developer-files-${HASH}/"
-          ls -l artifacts/${RENAME}-developer-files-${HASH}
+          echo "User files prepared in artifacts/dev/${RENAME}-developer-files-${HASH}/"
+          ls -l artifacts/dev/${RENAME}-developer-files-${HASH}
 
       - name: Upload end user firmware as artifacts
         uses: actions/upload-artifact@v4
