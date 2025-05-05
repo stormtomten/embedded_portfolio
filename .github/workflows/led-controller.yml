@@ -51,12 +51,12 @@ jobs:
         run: ls -l bin || true
 
       - name: Upload firmware as artifacts
-      #working-directory: led_controller
         uses: actions/upload-artifact@v4
         with:
           name: pico-firmware
+          working-directory: led_controller
           path: |
-            led_controller/bin/*.elf
-            led_controller/bin/*.uf2
-            led_controller/build/*.elf
-            led_controller/build/*.uf2
+            ./bin/*.elf
+            ./bin/*.uf2
+            ./build/*.elf
+            ./build/*.uf2
