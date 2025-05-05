@@ -21,7 +21,7 @@ jobs:
       NAME: ${{ inputs.name }}
       RENAME: ${{ inputs.rename }}
       EXT:: ${{ inputs.ext }}
-      HASH: ${{ github.sha }}
+      #HASH: ${{ github.sha }}
 
     steps:
       - name: Checkout code
