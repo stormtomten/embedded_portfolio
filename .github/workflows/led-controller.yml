@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        file_ending: [*.elf, *.uf2, *.bin] # Fil ändelser att itterera över
+        file_ending: [*.elf, *.uf2, *.bin] 
 
     steps:
       - name: Checkout code
