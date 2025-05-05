@@ -52,7 +52,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: pico-firmware
-          path: led_controller |
             bin/*.elf
             bin/*.uf2
             build/*.elf
