@@ -87,4 +87,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.RENAME }}-developer-files-${{ env.HASH }}
-          path: "${{ env.NAME }}artifacts/${{ env.RENAME }}-developer-files-${{ env.HASH }}"
+          path: "${{ env.NAME }}/artifacts/${{ env.RENAME }}-developer-files-${{ env.HASH }}"
