@@ -74,14 +74,14 @@ jobs:
           echo "Copying developer files"
           mkdir -p artifacts/${RENAME}-developer-files-${HASH}
           cp -r bin/* artifacts/${RENAME}-developer-files-${HASH}
-          echo "User files prepared in artifacts/${RENAME}-developer-files-${HASH}"
+          echo "User files prepared in artifacts/${RENAME}-developer-files-${HASH}/"
           ls -l artifacts/${RENAME}-developer-files-${HASH}
 
       - name: Upload end user firmware as artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.RENAME }}-firmware-${{ env.HASH }}
-          path: "${{ env.NAME }}/artifacts/${{ env.RENAME }}-firmware-${{ env.HASH }}"
+          path: "${{ env.NAME }}/artifacts/${{ env.RENAME }}-firmware-${{ env.HASH }}/"
 
       - name: Upload developer files as artifacts
         uses: actions/upload-artifact@v4
