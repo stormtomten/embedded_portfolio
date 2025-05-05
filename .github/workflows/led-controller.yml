@@ -8,83 +8,8 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
-    env:
-      # Project namn
-      NAME: "led_controller"
-      # Nytt namn
-      RENAME: "led-controller"
-      # Firmware för användare
-      EXT: "bin uf2 elf"
-      # GIT Short hash
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set short commit hash
-        run: |
-          echo "HASH=${GITHUB_SHA::7}" >> $GITHUB_ENV
-          echo "Short hash is: ${GITHUB_SHA::7}"
-
-      - name: Install dependencies
-        run: |
-          sudo apt-get update 
-          sudo apt-get install -y \
-          build-essential \
-          gcc-arm-none-eabi \
-          libnewlib-arm-none-eabi \
-          libstdc++-arm-none-eabi-newlib
-
-      - name: Fetch pico-sdk
-        run: |
-          git clone https://github.com/raspberrypi/pico-sdk.git
-          cd pico-sdk
-          git checkout 2.1.1 #Lås versionen
-          git submodule update --init
-          echo "PICO_SDK_PATH=$GITHUB_WORKSPACE/pico-sdk" >> $GITHUB_ENV
-
-      - name: Configure CMake
-        working-directory: ${{ env.NAME }}
-        run: cmake -B build -G Ninja -DPICO_SDK_PATH=$PICO_SDK_PATH
-
-      - name: Build Led Controller
-        working-directory: ${{ env.NAME }}
-        run: cmake --build build
-
-      - name: List built files in bin
-        working-directory: ${{ env.NAME }}
-        run: ls -l bin || true
-
-      - name: Prepare firmware files for end user
-        working-directory: ${{ env.NAME }}
-        run: |
-          echo "Collecting user files"
-          mkdir -p artifacts/user/${RENAME}-firmware-${HASH}
-          for ext in $EXT; do
-            find bin -type f -name "${NAME}.$ext" -exec cp {} "artifacts/user/${RENAME}-firmware-${HASH}/${RENAME}.$ext" \;
-            done
-          echo "User files prepared in artifacts/user/${RENAME}-firmware-${HASH}"
-          ls -l artifacts/user/${RENAME}-firmware-${HASH}
-
-      - name: Prepare developer files
-        working-directory: ${{ env.NAME }}
-        run: |
-          echo "Copying developer files"
-          mkdir -p artifacts/dev/${RENAME}-developer-files-${HASH}
-          cp -r bin/* artifacts/dev/${RENAME}-developer-files-${HASH}
-          echo "User files prepared in artifacts/dev/${RENAME}-developer-files-${HASH}/"
-          ls -l artifacts/dev/${RENAME}-developer-files-${HASH}
-
-      - name: Upload end user firmware as artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.RENAME }}-firmware-${{ env.HASH }}
-          path: "${{ env.NAME }}/artifacts/user"
-
-      - name: Upload developer files as artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.RENAME }}-developer-files-${{ env.HASH }}
-          path: "${{ env.NAME }}/artifacts/dev"
+    uses: ./.github/workflows/firmware-build.yml
+    with:
+      name: led_controller
+      rename: led-controller
+      ext: "bin uf2 elf"
