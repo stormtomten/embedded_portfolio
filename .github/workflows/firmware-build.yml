@@ -20,7 +20,7 @@ jobs:
     env:
       NAME: ${{ inputs.name }}
       RENAME: ${{ inputs.rename }}
-      EXT:: ${{ inputs.ext }}
+      EXT: ${{ inputs.ext }}
       #HASH: ${{ github.sha }}
 
     steps:
