@@ -39,6 +39,7 @@ jobs:
         run: cmake -B build -G Ninja
 
       - name: Build Led Controller
+        working-directory: led_controller
         run: cmake --build build
 
       - name: List built files
