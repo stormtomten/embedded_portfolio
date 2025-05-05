@@ -18,12 +18,13 @@ jobs:
       # Firmware för användare
       EXT: "bin uf2 elf"
       # GIT Short hash
-      HASH: ${{ github.sha::0:7 }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
+      - name: Set short commit hash
+        run: echo "HASH=$GITHUB_SHA::7}" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: |
