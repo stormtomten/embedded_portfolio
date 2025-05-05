@@ -61,7 +61,7 @@ jobs:
         working-directory: ${{ env.NAME }}
         run: |
           echo "Collecting user files"
-          mkdir -p artifacts/${RENAME}-firmware-${HASH}
+          mkdir -p artifacts/user/${RENAME}-firmware-${HASH}
           for ext in $EXT; do
             find bin -type f -name "${NAME}.$ext" -exec cp {} "artifacts/${RENAME}-firmware-${HASH}/${RENAME}.$ext" \;
             done
@@ -72,7 +72,7 @@ jobs:
         working-directory: ${{ env.NAME }}
         run: |
           echo "Copying developer files"
-          mkdir -p artifacts/${RENAME}-developer-files-${HASH}
+          mkdir -p artifacts/dev/${RENAME}-developer-files-${HASH}
           cp -r bin/* artifacts/${RENAME}-developer-files-${HASH}
           echo "User files prepared in artifacts/${RENAME}-developer-files-${HASH}/"
           ls -l artifacts/${RENAME}-developer-files-${HASH}
@@ -81,10 +81,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.RENAME }}-firmware-${{ env.HASH }}
-          path: "${{ env.NAME }}/artifacts/${{ env.RENAME }}-firmware-${{ env.HASH }}/"
+          path: "${{ env.NAME }}/artifacts/user"
 
       - name: Upload developer files as artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.RENAME }}-developer-files-${{ env.HASH }}
-          path: "${{ env.NAME }}/artifacts/${{ env.RENAME }}-developer-files-${{ env.HASH }}"
+          path: "${{ env.NAME }}/artifacts/dev"
