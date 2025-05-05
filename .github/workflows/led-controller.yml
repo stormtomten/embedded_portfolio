@@ -56,7 +56,7 @@ jobs:
         with:
           name: pico-firmware
           path: |
-            bin/*.elf
-            bin/*.uf2
-            build/*.elf
-            build/*.uf2
+            led_controller/bin/*.elf
+            led_controller/bin/*.uf2
+            led_controller/build/*.elf
+            led_controller/build/*.uf2
