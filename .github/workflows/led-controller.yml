@@ -9,9 +9,16 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        file_ending: [elf, uf2, bin] 
+
+    env:
+      # Project namn
+      NAME: "led_controller"
+      # Nytt namn
+      RENAME: "led-controller"
+      # Firmware för användare
+      EXT: "bin uf2 elf"
+      # GIT Short hash
+      HASH: ${{ github.sha::0:7 }}
 
     steps:
       - name: Checkout code
@@ -36,24 +43,44 @@ jobs:
           echo "PICO_SDK_PATH=$GITHUB_WORKSPACE/pico-sdk" >> $GITHUB_ENV
 
       - name: Configure CMake
-        working-directory: led_controller
+        working-directory: ${{ env.NAME }}
         run: cmake -B build -G Ninja
 
       - name: Build Led Controller
-        working-directory: led_controller
+        working-directory: ${{ env.NAME }}
         run: cmake --build build
 
-      - name: List built files
-        working-directory: led_controller
-        run: ls -l build || true
-
       - name: List built files in bin
-        working-directory: led_controller
+        working-directory: ${{ env.NAME }}
         run: ls -l bin || true
 
-      - name: Upload firmware as artifacts
+      - name: Prepare firmware files for end user
+        working-directory: ${{ env.NAME }}
+        run: |
+          echo "Collecting user files"
+          mkdir -p artifacts/${RENAME}-firmware-${HASH}
+          for ext in $EXT; do
+            find bin -type f -name "${NAME}.$ext" -exec cp {} "artifacts/${RENAME}-firmware-${HASH}/${RENAME}.$ext" \;
+            done
+          echo "User files prepared in artifacts/${RENAME}-firmware-${HASH}"
+          ls -l artifacts/${RENAME}-firmware-${HASH}
+
+      - name: Prepare developer files
+        working-directory: ${{ env.NAME }}
+        run: |
+          echo "Copying developer files"
+          mkdir -p artifacts/${NAME}-developer-files-${HASH}
+          cp -r bin/* artifacts/${NAME}-developer-files-${HASH}
+          echo "User files prepared in artifacts/${NAME}-developer-files-${HASH}"
+
+      - name: Upload end user firmware as artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: led-controller-firmware
-          working-directory: led_controller
-          path: led_controller/bin/*.${{ matrix.file_ending }}
+          name: ${{ env.RENAME }}-firmware-${{ env.HASH }}
+          path: "artifacts/${{ env.RENAME }}-firmware-${{ env.HASH }}"
+
+      - name: Upload developer files as artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.NAME }}-developer-files-${{ env.HASH }}
+          path: "artifacts/${{ env.NAME }}-developer-files-${{ env.HASH }}"
