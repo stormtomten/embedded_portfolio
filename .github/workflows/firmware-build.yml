@@ -82,11 +82,11 @@ jobs:
       - name: Upload end user firmware as artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.RENAME }}-firmware-${HASH}
+          name: ${{ env.RENAME }}-firmware-${{ env.HASH }}
           path: "${{ env.NAME }}/artifacts/user"
 
       - name: Upload developer files as artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.RENAME }}-developer-files--${HASH}
+          name: ${{ env.RENAME }}-developer-files-${{ env.HASH }}
           path: "${{ env.NAME }}/artifacts/dev"
