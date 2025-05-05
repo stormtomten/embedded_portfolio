@@ -30,7 +30,7 @@ jobs:
       - name: Set short commit hash
         run: |
           echo "HASH=${GITHUB_SHA::7}" >> $GITHUB_ENV
-          echo "Short hash is: ${GITHUB_SHA::7}
+          echo "Short hash is: ${GITHUB_SHA::7}"
 
       - name: Istall dependencies
         run: |

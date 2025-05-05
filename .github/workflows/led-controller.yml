@@ -5,7 +5,7 @@ on:
     paths:
       - 'led_controller/**'
       - '.github/workflows/led-controller.yml'
-  workflow_dispatch:
+      #workflow_dispatch:
 
 jobs:
   build:
