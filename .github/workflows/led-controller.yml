@@ -73,6 +73,7 @@ jobs:
           mkdir -p artifacts/${NAME}-developer-files-${HASH}
           cp -r bin/* artifacts/${NAME}-developer-files-${HASH}
           echo "User files prepared in artifacts/${NAME}-developer-files-${HASH}"
+          ls -l artifacts/${RENAME}-developer-files-${HASH}
 
       - name: Upload end user firmware as artifacts
         uses: actions/upload-artifact@v4
@@ -83,5 +84,5 @@ jobs:
       - name: Upload developer files as artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.NAME }}-developer-files-${{ env.HASH }}
+          name: ${{ env.RENAME }}-developer-files-${{ env.HASH }}
           path: "artifacts/${{ env.NAME }}-developer-files-${{ env.HASH }}"
