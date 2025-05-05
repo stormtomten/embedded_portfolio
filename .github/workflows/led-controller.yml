@@ -78,8 +78,8 @@ jobs:
           ls -l artifacts/${RENAME}-developer-files-${HASH}
 
       - name: Upload end user firmware as artifacts
-        working-directory: ${{ env.NAME }}
         uses: actions/upload-artifact@v4
+        working-directory: ${{ env.NAME }}
         with:
           name: ${{ env.RENAME }}-firmware-${{ env.HASH }}
           path: "artifacts/${{ env.RENAME }}-firmware-${{ env.HASH }}"
