@@ -51,8 +51,8 @@ jobs:
         run: ls -l bin || true
 
       - name: Upload firmware as artifacts
-        uses: actions/upload-artifact@v4
         working-directory: led_controller
+        uses: actions/upload-artifact@v4
         with:
           name: pico-firmware
           path: |
