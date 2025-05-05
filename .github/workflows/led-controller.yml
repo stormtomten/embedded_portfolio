@@ -14,3 +14,4 @@ jobs:
       name: led_controller
       rename: led-controller
       ext: "bin uf2 elf"
+      path: led_controller
