@@ -12,7 +12,7 @@ on:
       ext:
         required: true
         type: string
-      secrets: {}
+    secrets: {}
 
 jobs:
   build-and-upload:
