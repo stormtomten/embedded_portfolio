@@ -64,7 +64,7 @@ jobs:
         run: |
           echo "Collecting user files"
           mkdir -p artifacts/user/${RENAME}-firmware-${HASH}
-          cp README.md artifacts/user/${README}-firmware-${HASH}/
+          cp README.md artifacts/user/${RENAME}-firmware-${HASH}/
           for ext in $EXT; do
             find bin -type f -name "${NAME}.$ext" -exec cp {} "artifacts/user/${RENAME}-firmware-${HASH}/${RENAME}.$ext" \;
             done
