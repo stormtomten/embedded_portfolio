@@ -56,7 +56,7 @@ jobs:
           name: pico-firmware
           working-directory: led_controller
           path: |
-            ./bin/*.elf
-            ./bin/*.uf2
-            ./build/*.elf
-            ./build/*.uf2
+            /bin/*.elf
+            /bin/*.uf2
+            /build/*.elf
+            /build/*.uf2
