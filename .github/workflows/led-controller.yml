@@ -63,7 +63,7 @@ jobs:
           echo "Collecting user files"
           mkdir -p artifacts/user/${RENAME}-firmware-${HASH}
           for ext in $EXT; do
-            find bin -type f -name "${NAME}.$ext" -exec cp {} "artifacts/${RENAME}-firmware-${HASH}/${RENAME}.$ext" \;
+            find bin -type f -name "${NAME}.$ext" -exec cp {} "artifacts/user/${RENAME}-firmware-${HASH}/${RENAME}.$ext" \;
             done
           echo "User files prepared in artifacts/${RENAME}-firmware-${HASH}"
           ls -l artifacts/${RENAME}-firmware-${HASH}
@@ -73,7 +73,7 @@ jobs:
         run: |
           echo "Copying developer files"
           mkdir -p artifacts/dev/${RENAME}-developer-files-${HASH}
-          cp -r bin/* artifacts/${RENAME}-developer-files-${HASH}
+          cp -r bin/* artifacts/dev/${RENAME}-developer-files-${HASH}
           echo "User files prepared in artifacts/${RENAME}-developer-files-${HASH}/"
           ls -l artifacts/${RENAME}-developer-files-${HASH}
 
